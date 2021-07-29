@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,12 +18,26 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+
 <body>
+
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-            </div>
-        </nav>
+        {{-- navbar --}}
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <router-link class="nav-link" to="/login">Login</router-link>
+        </li>
+        <li class="nav-item">
+            <router-link class="nav-link" to="/signup">SignUp</router-link>
+        </li>
+        {{-- <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li> --}}
+    </ul>
+    {{-- /navbar --}}
 
         <main class="py-4">
             @yield('content')
@@ -30,4 +45,5 @@
     </div>
     <script src="/js/app.js"></script>
 </body>
+
 </html>
