@@ -74,7 +74,7 @@ class UserController extends Controller
             return response()->json(
             [
                 'state' => 'success',
-                '_token'=>$token,
+                'token'=>$token,
                 'msg'=>auth('api')->user()
                 // 'msg' => auth()->user()
             ]);
@@ -82,8 +82,8 @@ class UserController extends Controller
         return response()->json(
             [
                 'state' => 'erorr',
-                '_token'=>null,
-                'msg'=>'same thing erorr'
+                'token'=>null,
+                'msg'=>'same things erorr'
                 // 'msg' => auth()->user()
             ]);
     }

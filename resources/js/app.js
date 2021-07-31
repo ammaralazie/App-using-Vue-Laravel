@@ -31,8 +31,10 @@ Vue.component('pagination', require('laravel-vue-pagination'));
  */
 
 import router from './routes/routes'
+import store from './vuex/vuex';
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    store
 });

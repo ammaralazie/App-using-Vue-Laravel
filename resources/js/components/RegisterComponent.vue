@@ -12,7 +12,11 @@
                     name="name"
                     v-model="name"
                 />
-                <small id="emailHelp" v-text="checkName" class="form-text text-muted"></small>
+                <small
+                    id="emailHelp"
+                    v-text="checkName"
+                    class="form-text text-muted"
+                ></small>
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -24,7 +28,11 @@
                     name="email"
                     v-model="email"
                 />
-                 <small id="emailHelp" v-text="checkEmail" class="form-text text-muted"></small>
+                <small
+                    id="emailHelp"
+                    v-text="checkEmail"
+                    class="form-text text-muted"
+                ></small>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
@@ -35,9 +43,12 @@
                     name="password"
                     v-model="password"
                 />
-                <small id="password" v-text="checkPassword" class="form-text text-muted"></small>
+                <small
+                    id="password"
+                    v-text="checkPassword"
+                    class="form-text text-muted"
+                ></small>
             </div>
-
 
             <div class="form-group">
                 <label for="exampleInputPassword1">Confirm Password</label>
@@ -48,10 +59,21 @@
                     name="confirm_password"
                     v-model="confirm_password"
                 />
-                <small id="emailHelp" v-text="confirmPassword" class="form-text text-muted"></small>
+                <small
+                    id="emailHelp"
+                    v-text="confirmPassword"
+                    class="form-text text-muted"
+                ></small>
             </div>
 
-            <button type="submit" :disabled="!isValidForm" @click="submitButton" class="btn btn-primary">Sign UP</button>
+            <button
+                type="submit"
+                :disabled="!isValidForm"
+                @click="submitButton"
+                class="btn btn-primary"
+            >
+                Sign UP
+            </button>
         </form>
         <!-- /registarion scetion -->
     </div>
@@ -59,54 +81,73 @@
 
 <script>
 export default {
-    data(){
-        return{
-            name:'',
-            email:'',
-            password:'',
-            confirm_password:'',
-        }
-    },//end of data
-    computed:{
-        checkName(){
-            if(this.name.length>0 && this.name.length<2){
-                return 'your name is very short'
+    data() {
+        return {
+            name: "",
+            email: "",
+            password: "",
+            confirm_password: ""
+        };
+    }, //end of data
+    computed: {
+        checkName() {
+            if (this.name.length > 0 && this.name.length < 2) {
+                return "your name is very short";
             }
-        },//end of checkName
+        }, //end of checkName
         checkEmail() {
             console.log("working ...");
-            if (this.email.length>0 && !(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.email))) {
+            if (
+                this.email.length > 0 &&
+                !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+                    this.email
+                )
+            ) {
                 return "your email must containes @ and then dot(.) ";
             }
         }, //end of check eamil
 
-        checkPassword(){
-            if(this.password.length>0 &&this.password.length<8){
-                return 'your password is very short must be over 8 digits'
+        checkPassword() {
+            if (this.password.length > 0 && this.password.length < 8) {
+                return "your password is very short must be over 8 digits";
             }
-        },//end of checkPassword
+        }, //end of checkPassword
 
-        confirmPassword(){
-            if ((this.password.length>=8)&&(this.password !== this.confirm_password)){
-                return 'the passwords do not match'
-            }
-        },//end of checkPassword
-
-        isValidForm(){
+        confirmPassword() {
             if (
-                (this.name.length>0 && this.name.length>2)&&
-                (this.email.length>0 && (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.email)))&&
-                ((this.password.length>=8)&&(this.password === this.confirm_password))
-            ){
-                return 'Ok'
+                this.password.length >= 8 &&
+                this.password !== this.confirm_password
+            ) {
+                return "the passwords do not match";
+            }
+        }, //end of checkPassword
+
+        isValidForm() {
+            if (
+                this.name.length > 0 &&
+                this.name.length > 2 &&
+                this.email.length > 0 &&
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+                        this.email
+                    ) &&
+                this.password.length >= 8 &&
+                    this.password === this.confirm_password
+            ) {
+                return "Ok";
             }
         }
-    },//end of computed
+    }, //end of computed
 
-    methods:{
-        submitButton(e){
+    methods: {
+        submitButton(e) {
             e.preventDefault();
-            console.log('working ...')
+           let payload = {
+                name: this.name,
+                email: this.email,
+                password: this.password,
+                password_confirmation:this.confirm_password
+            };
+            this.$store.dispatch("regesterUser", payload);
         }
     }
 };

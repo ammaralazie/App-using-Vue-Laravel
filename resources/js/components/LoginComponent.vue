@@ -34,7 +34,7 @@
                     class="form-text text-denger"
                 ></small>
             </div>
-            <button :disabled='!isVlidForm' @click.prevent="submitButton" type="submit" class="btn btn-primary">Submit</button>
+            <button :disabled="!isVlidForm" @click.prevent="submitButton" type="submit" class="btn btn-primary">Submit</button>
         </form>
         <!-- /login section -->
     </div>
@@ -50,13 +50,11 @@ export default {
     }, //end of data
     computed: {
         checkEmail() {
-            console.log("working ...");
             if (this.email.length>0 && !(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.email))) {
                 return "your email must containes @ and then dot(.)";
             }
         }, //end of check eamil
         checkPassword() {
-            console.log('checkPassword is work ...')
             if (this.password.length > 0 && this.password.length < 8) {
                 return "password length must be over 8";
             }
@@ -64,7 +62,7 @@ export default {
         isVlidForm(){
             if(
                 (this.password.length > 0 && this.password.length >= 8)&&
-                (this.email.length>0 && !(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.email)))
+                (this.email.length > 0 && (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.email)))
             ){
                 return 'Ok'
             }
@@ -73,7 +71,12 @@ export default {
     methods:{
         submitButton(){
             console.log ('button login is working')
+            let payload = {
+                email: this.email,
+                password: this.password,
+            };
+            this.$store.dispatch('loginUser', payload)
         }
-    }
+    },
 };
 </script>
